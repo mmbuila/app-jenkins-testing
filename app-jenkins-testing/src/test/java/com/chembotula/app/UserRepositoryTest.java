@@ -17,7 +17,7 @@ public class UserRepositoryTest {
     @Before
     public void init() {
         userRepository = new SubUserRepository();
-        user = new User(1L, "michel.mbuila@gmail.com", "chembotula", true);
+        user = new User(1L, "michel.mbuila@gmail.com", "michel", true);
     }
 
     @Test
@@ -67,14 +67,14 @@ public class UserRepositoryTest {
     @Test
     public void findByUsernameAndPassword() {
         userRepository.save(user);
-        User pUser = userRepository.findByUsernameAndPassword("michel.mbuila@gmail.com", "chembotula");
+        User pUser = userRepository.findByUsernameAndPassword("michel.mbuila@gmail.com", "michel");
         Assert.assertNotNull(pUser);
     }
 
     @Test(expected = UserNotFoundException.class)
     public void findUserNotFoundException() {
         userRepository.save(user);
-        User pUser = userRepository.findByUsernameAndPassword("michel.mbuila@gmail.com", "chembotula0069");
+        User pUser = userRepository.findByUsernameAndPassword("michel.mbuila@gmail.com", "michelle");
         Assert.assertNotNull(pUser);
     }
 }
