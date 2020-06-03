@@ -1,5 +1,7 @@
 package com.chembotula.app;
 
+import com.chembotula.app.dao.RoleRepository;
+import com.chembotula.app.dao.SubRoleRepository;
 import com.chembotula.app.dao.SubUserRepository;
 import com.chembotula.app.dao.UserRepository;
 import com.chembotula.app.models.User;
@@ -9,15 +11,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class UserRepositoryTest {
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
     private User user;
 
     @Before
     public void init() {
         userRepository = new SubUserRepository();
-        user = new User(1L, "michel.mbuila@gmail.com", "michel", true);
+        roleRepository = new SubRoleRepository();
+        user = new User(1L, "michel.mbuila@gmail.com", "michel", true,  new ArrayList<>());
     }
 
     @Test
@@ -76,5 +82,11 @@ public class UserRepositoryTest {
         userRepository.save(user);
         User pUser = userRepository.findByUsernameAndPassword("michel.mbuila@gmail.com", "michelle");
         Assert.assertNotNull(pUser);
+    }
+
+    @Test
+    public void findUserRoles() {
+        roleRepository.findAll().forEach(role -> user.addRole(role));
+        Assert.assertEquals(3, user.getRoles().size());
     }
 }
