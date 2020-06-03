@@ -16,6 +16,7 @@ public class SubRoleRepository implements RoleRepository {
         atomicLong = new AtomicLong();
     }
 
+    @Override
     public void initialize() {
         Arrays.asList("ADMIN", "USER", "MANAGER")
                 .forEach(roleName -> {

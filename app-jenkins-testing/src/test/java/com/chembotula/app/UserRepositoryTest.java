@@ -86,6 +86,7 @@ public class UserRepositoryTest {
 
     @Test
     public void findUserRoles() {
+        roleRepository.initialize();
         roleRepository.findAll().forEach(role -> user.addRole(role));
         Assert.assertEquals(3, user.getRoles().size());
     }
